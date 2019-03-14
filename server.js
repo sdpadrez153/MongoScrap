@@ -8,7 +8,7 @@ var cheerio = require("cheerio");
 // Hook mongojs configuration to the db variable
 var db = require("./models");
 
-var PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // Initialize Express
 var app = express();
@@ -30,7 +30,6 @@ mongoose.connect("mongodb://localhost/articles", { useNewUrlParser: true });
 
 // Route for getting all Articles from the db
 app.get("/notes", function(req, res) {
-  // Grab every document in the Articles collection
   db.Note
     .find({})
     .then(function(dbNote) {
@@ -71,7 +70,6 @@ app.delete("/articles/deleteAll", function(req, res) {
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   db.Article
     .findOne({ _id: req.params.id })
     .populate("note")
