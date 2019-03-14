@@ -211,7 +211,7 @@ app.get("/scrape", function(req, res) {
                     res.json(err);
                 });
         });
-        res.send("soemthing");
+        res.send("something");
     });
    
 });

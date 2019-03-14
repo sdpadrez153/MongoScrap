@@ -146,7 +146,7 @@ console.log("inside delete-note " + thisId + " " + articleId);
   // Run DELETE method
   $.ajax({
       method: "DELETE",
-      url: "/notes/deleteNote/" + thisId + "/" + articleId,
+      url: "/notes/deleteNote/" + thisId + " " + articleId,
     })
     .done(function(data) { // hide the modal
      $("#noteModal").modal("hide");// tell me it was a success
