@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Scraper</title>
+  <!-- Added a link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <body background="https://static1.squarespace.com/static/55f8651ee4b0d636c544d464/t/56043674e4b0dce6705aea35/1443116661900/Newspaper+Background.jpg?format=1500w">
+  <!--begin container-->
+  <div class="container">
+    
+  <!--begin jumbotron-->
+  <!-- <div class="jumbotron"> -->
+
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+        <h1>The Onion-Scraper</h1>
+    </div>
+    <div class="row" id="allButtons">
+  <!--button to scrape-->
+  <button class="btn btn-success btn-lg" id="run-scrape">Scrape</button>
+  <!--button to view saved articles-->
+  <button class="btn btn-danger btn-lg" id="view-saved">View Saved Articles</button>
+  <!--button to see new-->
+  <button class="btn btn-primary btn-lg" id="view-all">View All Articles</button>
+</div>
+</div>
+<div class="col-md-2">
+  
+</div>
+</div>
+ 
+            
+   </div>
+   <!--end jumbotron-->
+         
+            
+            
+            
+            
+<div class="row">
+  <div id="wrapper">
+    <h2><i>Articles</i></h2>
+    <div id="articles"></div>
+      <div id="savedArticles"></div>
+  </div>
+  </div>
+
+
+
+
+  <!-- Modal to veiw notes -->
+  <div id="noteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title"><strong>Notes</strong></h2>
+        </div>
+        <div class="modal-body">
+          <div id="notes"></div>
+         <div id="newNote">
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="closeModal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!--end modal-->
+  
+  
+  </div>
+<!--end container-->
+
+  <script src="app.js"></script>
+</body>
+
+</html>
