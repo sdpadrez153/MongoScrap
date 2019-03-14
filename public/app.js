@@ -1,4 +1,3 @@
-// Grab the articles as a json
 function getJson() {
   $.getJSON("/articles", function(data) {
       $("#savedArticles").hide();
@@ -15,7 +14,6 @@ function getJson() {
   });
 }
 
-// get my data
 getJson();
 
 // Whenever someone clicks a view-notes button
@@ -23,7 +21,6 @@ $(document).on("click", ".view-notes", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   $("#newNote").empty();
-  // Save the id from the article
   var thisId = $(this).attr("data-id");
 
   // Now make an ajax call for the Article
@@ -34,18 +31,15 @@ $(document).on("click", ".view-notes", function() {
     // With that done, add the note information to the modal
     .done(function(data) {
       console.log(data);
-
-      // Show the modal... and build the modal
       $("#noteModal").modal("show");
-      // An input to enter a new title
+      
       $("#newNote").append("<input id='title-input' name='title' >" + "<br>");
-      // A textarea to add a new note body
+
       $("#newNote").append("<textarea id='body-input' name='body'></textarea>" + "<br>");
-      // A button to submit a new note, with the id of the article saved to it
+      
       $("#newNote").append("<button data-id='" + data._id + "' class='save-note'>Save Note</button>");
 
-      // If there's a note in the article
-      // if (data.note) { // make a place for them to go
+     
       if (data.note.length != 0) {
       for (var i = 0; i < data.note.length; i++) {
         $("#notes").append(
@@ -67,7 +61,6 @@ $(document).on("click", ".view-notes", function() {
 
 // When you click the save-note button
 $(document).on("click", ".save-note", function() {
-  // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
   // Run a POST request
@@ -93,7 +86,6 @@ $(document).on("click", ".save-note", function() {
   $("#noteModal").modal("hide");
 });
 
-//  code to close the modal
 $("#closeModal").on("click", function(event) {
   $("#noteModal").modal("hide");
 });
@@ -110,10 +102,8 @@ $(document).on("click", ".save-article", function() {
       method: "POST",
       url: "/saved/" + thisId,
     })
-    // With that done...
     .done(function(data) { // refresh the page
     console.log("article saved: " + data);
-     // location.reload();
     });
 
 });

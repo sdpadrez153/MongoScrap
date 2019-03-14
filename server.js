@@ -6,12 +6,13 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 // Hook mongojs configuration to the db variable
-var PORT = 3000;
+var db = require("./models");
+
+var PORT = 8000;
 
 // Initialize Express
 var app = express();
 
-var db = require("./models");
 
 // Configure middleware
 
@@ -33,11 +34,11 @@ app.get("/notes", function(req, res) {
   db.Note
     .find({})
     .then(function(dbNote) {
-      // If we were able to successfully find Articles, send them back to the client
+    
       res.json(dbNote);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
+  
       res.json(err);
     });
 });
@@ -48,11 +49,11 @@ app.get("/articles", function(req, res) {
   db.Article
     .find({}).populate("note")
     .then(function(dbArticle) {
-      // If we were able to successfully find Articles, send them back to the client
+
       res.json(dbArticle);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
+    
       res.json(err);
     });
 });
@@ -73,14 +74,13 @@ app.get("/articles/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   db.Article
     .findOne({ _id: req.params.id })
-    // ..and populate all of the notes associated with it
     .populate("note")
     .then(function(dbArticle) {
-      // If we were able to successfully find an Article with the given id, send it back to the client
+      
       res.json(dbArticle);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
+      
       res.json(err);
     });
 });
@@ -95,28 +95,27 @@ app.post("/articles/:id", function(req, res) {
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { note: dbNote._id }}, { new: true });
     })
     .then(function(dbArticle) {
-      // If we were able to successfully update an Article, send it back to the client
+    
       res.json(dbArticle);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
+      
       res.json(err);
     });
 });
 
 // Delete a note
 app.delete("/notes/deleteNote/:note_id/:article_id", function(req, res) {
-  // Use the note id to find and delete it
   db.Note.findOneAndRemove({ _id: req.params.note_id }, function(err) {
-    // if any errors occur...
+  
     if (err) {
       console.log(err);
       res.send(err);
     }
-    else { // go update the article now that we're missing a note
+    else {
       db.Article.findOneAndUpdate({ _id: req.params.article_id }, {$pull: {note: req.params.note_id}})
         .exec(function(err, data) {
-          // if any errors occur...
+        
           if (err) {
             console.log(err);
             res.send(err);
@@ -130,7 +129,7 @@ app.delete("/notes/deleteNote/:note_id/:article_id", function(req, res) {
 
 
 // Route for saving an article
-app.post("/saved/:id", function(req, res) {  // grab it by the id and save it
+app.post("/saved/:id", function(req, res) {
     db.Article.findOneAndUpdate({_id: req.params.id}, {$set: {saved: true}})
         .then(function(dbArticle) {
             res.json(dbArticle);
@@ -142,12 +141,11 @@ app.get("/saved", function(req, res) {
   // Grab every document in the saved collection and populate its notes
   db.Article.find({saved: true}).populate("note")
     .then(function(dbArticle) {
-      // If we were able to successfully, send them back to the client
-     // res.render("/saved");
+      
      res.json(dbArticle);
     })
     .catch(function(err) {
-      // If an error occurred, send it to the client
+    
       res.json(err);
     });
 });
@@ -161,7 +159,7 @@ app.post("/deleteSaved/:id", function(req, res) {
             res.json(dbArticle);
         })
         .catch(function(err) {
-            // If an error occurs, send it back to the client
+          
             res.json(err);
         });
 });
